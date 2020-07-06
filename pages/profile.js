@@ -2,8 +2,9 @@ import { authInitialProps } from '../lib/auth'
 import { getUser } from '../lib/api'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Skeleton, Card, Avatar, Layout, Button, Divider } from 'antd'
+import { Skeleton, Card, Avatar, Layout, Button, Divider, Space } from 'antd'
 import FollowUser from '../components/profile/FollowUser'
+import DeleteUser from '../components/profile/DeleteUser'
 const { Meta } = Card
 
 export default function Profile({ auth, userId }) {
@@ -42,11 +43,14 @@ export default function Profile({ auth, userId }) {
         /* Auth - Edit Buttons / UnAuth - Follow Buttons */
         extra={
           isAuth ? (
-            <Button>
-              <Link href="/edit-profile">
-                <a>편집</a>
-              </Link>
-            </Button>
+            <Space>
+              <Button>
+                <Link href="/edit-profile">
+                  <a>수정</a>
+                </Link>
+              </Button>
+              <DeleteUser user={user} />
+            </Space>
           ) : (
             <FollowUser isFollowing={isFollowing} toggleFollow={toggleFollow} />
           )

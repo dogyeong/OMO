@@ -68,10 +68,10 @@ exports.resizeAvatar = async (req, res, next) => {
     return next()
   }
   const extension = req.file.mimetype.split('/')[1]
-  req.body.avatar = `/static/uploads/avatars/${req.user.name}-${Date.now()}.${extension}`
+  req.body.avatar = `/uploads/avatars/${req.user.name}-${Date.now()}.${extension}`
   const image = await jimp.read(req.file.buffer)
   await image.resize(250, jimp.AUTO)
-  await image.write(`./${req.body.avatar}`)
+  await image.write(`./public${req.body.avatar}`)
   next()
 }
 
