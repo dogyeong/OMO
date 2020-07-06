@@ -66,60 +66,77 @@ export default function EditProfile({ auth }) {
   }
 
   return (
-    <Layout style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Card style={{ width: 640, marginTop: 32 }} title="프로필 수정">
-        {isLoading ? (
-          <Space style={{ width: '100%', justifyContent: 'center' }}>
-            <Spin size="large" />
-          </Space>
-        ) : (
-          <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }} size="large" onFinish={onFinish}>
-            <Form.Item wrapperCol={{ offset: 4, span: 26 }}>
-              <Space size="middle">
-                <Avatar src={`${preview || user.avatar}`} size={50} />
-                <Upload
-                  name="avatar"
-                  accept="image/*"
-                  beforeUpload={beforeUpload}
-                  onRemove={handleRemove}
-                  fileList={fileList}
-                  listType="text"
-                >
-                  <Button>
-                    <UploadOutlined /> 프로필 사진 업로드
-                  </Button>
-                </Upload>
-              </Space>
-            </Form.Item>
+    <Layout>
+      <div className="responsive">
+        <Card style={{ width: '100%' }} title="프로필 수정">
+          {isLoading ? (
+            <Space style={{ width: '100%', justifyContent: 'center' }}>
+              <Spin size="large" />
+            </Space>
+          ) : (
+            <Form labelCol={{ span: 4 }} wrapperCol={{ span: 20 }} size="large" onFinish={onFinish}>
+              <Form.Item wrapperCol={{ offset: 4, span: 26 }}>
+                <Space size="middle">
+                  <Avatar src={`${preview || user.avatar}`} size={100} />
+                  <Upload
+                    name="avatar"
+                    accept="image/*"
+                    beforeUpload={beforeUpload}
+                    onRemove={handleRemove}
+                    fileList={fileList}
+                    listType="text"
+                  >
+                    <Button>
+                      <UploadOutlined /> 프로필 사진 업로드
+                    </Button>
+                  </Upload>
+                </Space>
+              </Form.Item>
 
-            <Form.Item
-              label="이름"
-              name="name"
-              initialValue={user.name}
-              rules={[{ required: true, message: '이름을 4~10자 입력해 주세요.', min: 4, max: 10 }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="이메일"
-              name="email"
-              initialValue={user.email}
-              rules={[{ required: true, message: '이메일을 입력해 주세요.', type: 'email' }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item label="소개" name="about" initialValue={user.about} rules={[{ required: false }]}>
-              <TextArea />
-            </Form.Item>
+              <Form.Item
+                label="이름"
+                name="name"
+                initialValue={user.name}
+                rules={[{ required: true, message: '이름을 4~10자 입력해 주세요.', min: 4, max: 10 }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="이메일"
+                name="email"
+                initialValue={user.email}
+                rules={[{ required: true, message: '이메일을 입력해 주세요.', type: 'email' }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item label="소개" name="about" initialValue={user.about} rules={[{ required: false }]}>
+                <TextArea />
+              </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 4, span: 26 }} style={{ marginBottom: 0 }}>
-              <Button type="primary" htmlType="submit" disabled={isSaving} block>
-                {isSaving ? '저장중..' : '저장'}
-              </Button>
-            </Form.Item>
-          </Form>
-        )}
-      </Card>
+              <Form.Item wrapperCol={{ offset: 4, span: 26 }} style={{ marginBottom: 0 }}>
+                <Button type="primary" htmlType="submit" disabled={isSaving} block>
+                  {isSaving ? '저장중..' : '저장'}
+                </Button>
+              </Form.Item>
+            </Form>
+          )}
+        </Card>
+      </div>
+
+      <style jsx>
+        {`
+          .responsive {
+            width: 600px;
+            margin: 0 auto;
+          }
+
+          @media screen and (max-width: 700px) {
+            .responsive {
+              width: 100%;
+            }
+          }
+        `}
+      </style>
     </Layout>
   )
 }

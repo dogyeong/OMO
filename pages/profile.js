@@ -36,36 +36,54 @@ export default function Profile({ auth, userId }) {
   }
 
   return (
-    <Layout style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Card
-        style={{ width: 640, marginTop: 32 }}
-        title="프로필"
-        /* Auth - Edit Buttons / UnAuth - Follow Buttons */
-        extra={
-          isAuth ? (
-            <Space>
-              <Button>
-                <Link href="/edit-profile">
-                  <a>수정</a>
-                </Link>
-              </Button>
-              <DeleteUser user={user} />
-            </Space>
-          ) : (
-            <FollowUser isFollowing={isFollowing} toggleFollow={toggleFollow} />
-          )
-        }
-      >
-        <Skeleton loading={isLoading} avatar active>
-          <Meta
-            avatar={<Avatar src={`${user.avatar}`} size={50} />}
-            title={`${user.name}`}
-            description={user.email}
-          />
-        </Skeleton>
-        <Divider />
-        가입일 : {user.createdAt}
-      </Card>
+    <Layout>
+      <div className="responsive">
+        <Card
+          style={{ width: '100%' }}
+          title="프로필"
+          /* Auth - Edit Buttons / UnAuth - Follow Buttons */
+          extra={
+            isAuth ? (
+              <Space>
+                <Button>
+                  <Link href="/edit-profile">
+                    <a>수정</a>
+                  </Link>
+                </Button>
+                <DeleteUser user={user} />
+              </Space>
+            ) : (
+              <FollowUser isFollowing={isFollowing} toggleFollow={toggleFollow} />
+            )
+          }
+        >
+          <Skeleton loading={isLoading} avatar active>
+            <Meta
+              avatar={<Avatar src={`${user.avatar}`} size={100} />}
+              title={`${user.name}`}
+              description={user.email}
+            />
+          </Skeleton>
+          <Divider />
+          <p>{user.about}</p>
+          가입일 : {user.createdAt}
+        </Card>
+      </div>
+
+      <style jsx>
+        {`
+          .responsive {
+            width: 600px;
+            margin: 0 auto;
+          }
+
+          @media screen and (max-width: 700px) {
+            .responsive {
+              width: 100%;
+            }
+          }
+        `}
+      </style>
     </Layout>
   )
 }

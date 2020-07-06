@@ -25,6 +25,7 @@
     "express-validator": "^6.6.0",
     "helmet": "^3.23.2",
     "jimp": "^0.13.0",
+    "moment": "^2.27.0",
     "mongo-connect": "0.0.6",
     "mongoose": "^5.9.20",
     "mongoose-mongodb-errors": "0.0.2",
