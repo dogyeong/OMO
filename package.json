@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server/app.js --watch server",
-    "start": "node server/app.js",
+    "start": "NODE_ENV=production node server/app.js",
     "build": "next build",
     "deploy": "now --public",
     "alias": "now alias",
