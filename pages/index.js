@@ -12,13 +12,12 @@ export default function Index({ auth }) {
     <React.Fragment>
       {auth.user && auth.user._id ? (
         <Layout>
-          {/* <Content>
+          <Content>
             <PostFeed auth={auth} />
           </Content>
           <Sider>
             <UserFeed auth={auth} />
-          </Sider> */}
-          {auth.user.name}
+          </Sider>
         </Layout>
       ) : (
         <Landing />

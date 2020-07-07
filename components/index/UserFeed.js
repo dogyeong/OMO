@@ -85,6 +85,11 @@ export default function UserFeed({ auth }) {
         .name:hover {
           text-decoration: underline;
         }
+        @media screen and (max-width: 700px) {
+          :global(aside.ant-layout-sider) {
+            display: none;
+          }
+        }
       `}</style>
     </React.Fragment>
   )
