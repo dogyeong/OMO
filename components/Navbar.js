@@ -23,6 +23,7 @@ export default function Navbar({ pageProps }) {
             <a style={{ fontSize: '1.25rem', color: 'white' }}>오늘 모목지?</a>
           </Link>
         </div>
+
         {user._id ? (
           <Menu theme="dark" mode="horizontal">
             <Menu.Item key="1" style={{ backgroundColor: 'transparent' }}>

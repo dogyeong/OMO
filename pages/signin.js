@@ -49,7 +49,7 @@ export default function Signup() {
               style={{ marginBottom: '0' }}
             >
               <Button type="primary" htmlType="submit" disabled={isLoading} block>
-                로그인
+                {isLoading ? '로그인 중..' : '로그인'}
               </Button>
             </Form.Item>
           </Form>

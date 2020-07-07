@@ -17,15 +17,19 @@ const ActiveLink = ({ href, children }) => {
   const isCurrentPath = router.pathname === href || router.asPath === href
 
   return (
-    <a
-      href={href}
-      onClick={handleClick}
-      style={{
-        color: isCurrentPath ? '#FFF' : 'rgba(255, 255, 255, 0.65)',
-      }}
-    >
-      {children}
-    </a>
+    <React.Fragment>
+      <a href={href} onClick={handleClick}>
+        {children}
+      </a>
+      <style jsx>{`
+        a {
+          color: ${isCurrentPath ? '#FFF' : 'rgba(255, 255, 255, 0.65)'} !important;
+        }
+        a:hover {
+          color: #fff !important;
+        }
+      `}</style>
+    </React.Fragment>
   )
 }
 
