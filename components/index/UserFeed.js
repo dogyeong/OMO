@@ -62,7 +62,7 @@ export default function UserFeed({ auth }) {
 
         :global(aside.ant-layout-sider) {
           background-color: transparent;
-          margin-left: 40px;
+          margin-left: 60px;
         }
 
         .list {
@@ -85,7 +85,7 @@ export default function UserFeed({ auth }) {
         .name:hover {
           text-decoration: underline;
         }
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 800px) {
           :global(aside.ant-layout-sider) {
             display: none;
           }

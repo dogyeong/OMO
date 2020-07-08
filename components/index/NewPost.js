@@ -1,7 +1,32 @@
-import { Card, Avatar, Space, Input, Upload } from 'antd'
+import { Card, Avatar, Space, Input, Upload, Button } from 'antd'
 import { PlusOutlined, PushpinOutlined } from '@ant-design/icons'
+import { useState, useEffect } from 'react'
 
-export default function NewPost({ auth, text, image, handleText, handleImage, hasImage }) {
+export default function NewPost({
+  auth,
+  text,
+  image,
+  handleText,
+  handleImage,
+  hasImage,
+  isAddingPost,
+  handleAddPost,
+}) {
+  const [fileList, setFileList] = useState([])
+
+  useEffect(() => {
+    if (image) {
+      setFileList([
+        {
+          uid: '-1',
+          url: URL.createObjectURL(image),
+        },
+      ])
+    } else {
+      setFileList([])
+    }
+  }, [image])
+
   return (
     <Card
       title={
@@ -10,7 +35,11 @@ export default function NewPost({ auth, text, image, handleText, handleImage, ha
           <span>{auth.user.name}</span>
         </Space>
       }
-      actions={[<span>게시</span>]}
+      actions={[
+        <Button block type="link" disabled={!text || isAddingPost} onClick={handleAddPost}>
+          {isAddingPost ? '게시 중' : '게시'}
+        </Button>,
+      ]}
       style={{ backgroundColor: 'rgba(255,255,255,0.85)' }}
     >
       <Space direction="vertical" style={{ width: '100%' }}>
@@ -27,13 +56,11 @@ export default function NewPost({ auth, text, image, handleText, handleImage, ha
         <Upload
           action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
           listType="picture-card"
-          // fileList={fileList}
-          // onPreview={this.handlePreview}
-          // onChange={this.handleChange}
           name="image"
           beforeUpload={handleImage}
           onRemove={() => handleImage(null)}
           showUploadList={{ showPreviewIcon: false }}
+          fileList={fileList}
         >
           {hasImage ? null : (
             <div>

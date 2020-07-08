@@ -15,7 +15,7 @@ export default function Index({ auth }) {
           <Content>
             <PostFeed auth={auth} />
           </Content>
-          <Sider>
+          <Sider width={240}>
             <UserFeed auth={auth} />
           </Sider>
         </Layout>
