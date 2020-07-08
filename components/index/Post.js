@@ -2,8 +2,16 @@ import { Card, Avatar, Space, Divider, Button, Badge, Row, Col, Popconfirm } fro
 import { LikeOutlined, CommentOutlined, QuestionCircleOutlined, LikeFilled } from '@ant-design/icons'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Comments from './Comments'
 
-export default function Post({ auth, post, isDeletingPost, handleDeletePost, handleToggleLike }) {
+export default function Post({
+  auth,
+  post,
+  isDeletingPost,
+  handleDeletePost,
+  handleToggleLike,
+  handleAddComment,
+}) {
   const [liked, setLiked] = useState(false)
   const [numLikes, setNumLikes] = useState(0)
   const [comments, setComments] = useState([])
@@ -11,6 +19,7 @@ export default function Post({ auth, post, isDeletingPost, handleDeletePost, han
   useEffect(() => {
     setLiked(post.likes.includes(auth.user._id))
     setNumLikes(post.likes.length)
+    setComments(post.comments)
   }, [post])
 
   const isPostCreator = post.postedBy._id === auth.user._id
@@ -49,7 +58,7 @@ export default function Post({ auth, post, isDeletingPost, handleDeletePost, han
     >
       <p>{post.text}</p>
       <img src={post.image} style={{ width: '100%' }} />
-      <Divider />
+      <Divider style={{ margin: '12px 0' }} />
       <Row>
         <Col span={12}>
           <Button
@@ -84,6 +93,9 @@ export default function Post({ auth, post, isDeletingPost, handleDeletePost, han
           </Button>
         </Col>
       </Row>
+
+      {/* Comments Area */}
+      <Comments auth={auth} postId={post._id} comments={comments} handleAddComment={handleAddComment} />
 
       <style jsx>{`
         .createdAt {
