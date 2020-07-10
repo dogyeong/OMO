@@ -11,16 +11,22 @@ export default function Post({
   handleDeletePost,
   handleToggleLike,
   handleAddComment,
+  handleDeleteComment,
 }) {
   const [liked, setLiked] = useState(false)
   const [numLikes, setNumLikes] = useState(0)
   const [comments, setComments] = useState([])
+  const [isCommentVisible, setIsCommentVisible] = useState(false)
 
   useEffect(() => {
     setLiked(post.likes.includes(auth.user._id))
     setNumLikes(post.likes.length)
     setComments(post.comments)
   }, [post])
+
+  const toggleComments = () => {
+    setIsCommentVisible(!isCommentVisible)
+  }
 
   const isPostCreator = post.postedBy._id === auth.user._id
 
@@ -80,7 +86,7 @@ export default function Post({
           </Button>
         </Col>
         <Col span={12}>
-          <Button shape="rounded" type="text" block>
+          <Button shape="rounded" type="text" block onClick={toggleComments}>
             <Badge
               showZero
               count={comments.length}
@@ -88,14 +94,22 @@ export default function Post({
               offset={[10, -5]}
               style={{ backgroundColor: '#bfbfbf' }}
             >
-              <CommentOutlined /> 댓글 달기
+              <CommentOutlined /> {isCommentVisible ? '댓글 접기' : '댓글 달기'}
             </Badge>
           </Button>
         </Col>
       </Row>
 
       {/* Comments Area */}
-      <Comments auth={auth} postId={post._id} comments={comments} handleAddComment={handleAddComment} />
+      {isCommentVisible && (
+        <Comments
+          auth={auth}
+          postId={post._id}
+          comments={comments}
+          handleAddComment={handleAddComment}
+          handleDeleteComment={handleDeleteComment}
+        />
+      )}
 
       <style jsx>{`
         .createdAt {

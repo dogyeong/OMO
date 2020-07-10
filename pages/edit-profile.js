@@ -126,7 +126,7 @@ export default function EditProfile({ auth }) {
       <style jsx>
         {`
           .responsive {
-            width: 600px;
+            width: 700px;
             margin: 0 auto;
           }
 

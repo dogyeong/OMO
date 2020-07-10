@@ -1,7 +1,21 @@
-import { Avatar, Row, Col, Input, Button, Divider, Form, Space, Comment, Tooltip, List } from 'antd'
+import {
+  Avatar,
+  Row,
+  Col,
+  Input,
+  Button,
+  Divider,
+  Form,
+  Space,
+  Comment,
+  Tooltip,
+  List,
+  Popconfirm,
+} from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 
-export default function Comments({ auth, postId, comments, handleAddComment }) {
+export default function Comments({ auth, postId, comments, handleAddComment, handleDeleteComment }) {
   const [form] = Form.useForm()
 
   const onFinish = (data) => {
@@ -20,7 +34,22 @@ export default function Comments({ auth, postId, comments, handleAddComment }) {
           renderItem={(comment) => (
             <li>
               <Comment
-                actions={auth.user._id === comment.postedBy._id ? [<span>삭제</span>] : []}
+                actions={
+                  auth.user._id === comment.postedBy._id
+                    ? [
+                        <Popconfirm
+                          placement="right"
+                          title="삭제하시겠습니까?"
+                          onConfirm={() => handleDeleteComment(postId, comment)}
+                          okText="삭제"
+                          cancelText="취소"
+                          icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                        >
+                          <span>삭제</span>
+                        </Popconfirm>,
+                      ]
+                    : []
+                }
                 author={
                   <Link href="/">
                     <a>{comment.postedBy.name}</a>

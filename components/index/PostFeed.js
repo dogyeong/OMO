@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react'
 import NewPost from './NewPost'
 import Post from './Post'
-import { addPost, getPostFeed, deletePost, likePost, unlikePost, addComment } from '../../lib/api'
+import {
+  addPost,
+  getPostFeed,
+  deletePost,
+  likePost,
+  unlikePost,
+  addComment,
+  deleteComment,
+} from '../../lib/api'
 import { message } from 'antd'
 
 export default function PostFeed({ auth }) {
@@ -93,6 +101,16 @@ export default function PostFeed({ auth }) {
       .catch((err) => console.log(err))
   }
 
+  const handleDeleteComment = (postId, comment) => {
+    deleteComment(postId, comment)
+      .then((postData) => {
+        const postIndex = posts.findIndex((post) => post._id === postData._id)
+        const updatedPosts = [...posts.slice(0, postIndex), postData, ...posts.slice(postIndex + 1)]
+        setPosts(updatedPosts)
+      })
+      .catch((err) => console.log(err))
+  }
+
   return (
     <div>
       <NewPost
@@ -115,6 +133,7 @@ export default function PostFeed({ auth }) {
           handleDeletePost={handleDeletePost}
           handleToggleLike={handleToggleLike}
           handleAddComment={handleAddComment}
+          handleDeleteComment={handleDeleteComment}
         />
       ))}
     </div>

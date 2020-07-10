@@ -61,6 +61,7 @@ export default function NewPost({
           onRemove={() => handleImage(null)}
           showUploadList={{ showPreviewIcon: false }}
           fileList={fileList}
+          accept="image/*"
         >
           {hasImage ? null : (
             <div>

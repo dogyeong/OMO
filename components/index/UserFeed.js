@@ -63,6 +63,12 @@ export default function UserFeed({ auth }) {
         :global(aside.ant-layout-sider) {
           background-color: transparent;
           margin-left: 60px;
+          /* sticky */
+          height: 100vh;
+          position: sticky;
+          overflow: auto;
+          top: 80px;
+          right: 0;
         }
 
         .list {
