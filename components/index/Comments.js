@@ -14,6 +14,8 @@ import {
 } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import Link from 'next/link'
+import { formatDistanceToNow } from 'date-fns'
+import { ko } from 'date-fns/locale'
 
 export default function Comments({ auth, postId, comments, handleAddComment, handleDeleteComment }) {
   const [form] = Form.useForm()
@@ -21,6 +23,11 @@ export default function Comments({ auth, postId, comments, handleAddComment, han
   const onFinish = (data) => {
     handleAddComment(postId, data.text)
     form.resetFields()
+  }
+
+  const formatTimeCreated = (time) => {
+    const date = new Date(time)
+    return formatDistanceToNow(date, { includeSeconds: true, addSuffix: true, locale: ko })
   }
 
   return (
@@ -57,7 +64,7 @@ export default function Comments({ auth, postId, comments, handleAddComment, han
                 }
                 avatar={comment.postedBy.avatar}
                 content={comment.text}
-                // datetime={item.datetime}
+                datetime={formatTimeCreated(comment.createdAt)}
               />
             </li>
           )}

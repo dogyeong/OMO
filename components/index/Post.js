@@ -3,6 +3,8 @@ import { LikeOutlined, CommentOutlined, QuestionCircleOutlined, LikeFilled } fro
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Comments from './Comments'
+import { formatDistanceToNow } from 'date-fns'
+import { ko } from 'date-fns/locale'
 
 export default function Post({
   auth,
@@ -28,6 +30,11 @@ export default function Post({
     setIsCommentVisible(!isCommentVisible)
   }
 
+  const formatTimeCreated = (time) => {
+    const date = new Date(time)
+    return formatDistanceToNow(date, { includeSeconds: true, addSuffix: true, locale: ko })
+  }
+
   const isPostCreator = post.postedBy._id === auth.user._id
 
   return (
@@ -39,7 +46,7 @@ export default function Post({
             <Link href={`/profile/${post.postedBy._id}`}>
               <a style={{ color: 'rgba(0,0,0,0.85)' }}>{post.postedBy.name}</a>
             </Link>
-            <div className="createdAt">{post.createdAt}</div>
+            <span className="createdAt">{formatTimeCreated(post.createdAt)}</span>
           </div>
         </Space>
       }
@@ -115,6 +122,7 @@ export default function Post({
         .createdAt {
           font-size: 0.8rem;
           color: #666;
+          display: block;
         }
       `}</style>
     </Card>
