@@ -66,7 +66,7 @@ app.prepare().then(() => {
     /* 1번째 프록시 서버를 클라이언트로서 신뢰한다 */
     server.set('trust proxy', 1)
     /* http 요청을 https로 돌린다 */
-    app.use(enforce.HTTPS({ trustProtoHeader: true }))
+    server.use(enforce.HTTPS({ trustProtoHeader: true }))
   }
 
   server.use(express.json())
