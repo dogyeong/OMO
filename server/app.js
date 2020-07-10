@@ -97,6 +97,7 @@ app.prepare().then(() => {
 
   /* Error handling from async / await functions */
   server.use((err, req, res, next) => {
+    console.error(err)
     const { status = 500, message } = err
     res.status(status).json(message)
   })
