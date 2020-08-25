@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^4.4.1",
+    "aws-sdk": "^2.739.0",
     "axios": "^0.19.2",
     "compression": "^1.7.4",
     "connect-mongo": "^3.2.0",
