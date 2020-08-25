@@ -55,7 +55,6 @@ exports.resizeImage = async (req, res, next) => {
           console.log(err);
           return reject(err);
         }
-        console.log(data);
         req.body.image = data.Location;
         resolve(next());
       });
